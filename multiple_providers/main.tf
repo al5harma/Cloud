@@ -1,3 +1,5 @@
+# AWS S3 Cross-Region Replication
+
 resource "aws_s3_bucket" "uswest_bucket" {
   provider = aws.uswest
   bucket   = "alessandromarinoac-uswest-bucket"
