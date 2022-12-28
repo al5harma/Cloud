@@ -1,0 +1,258 @@
+Issues
+
+Low Severity Issues: 9
+
+  [Low] S3 server access logging is disabled
+  Info:    S3 server access logging is disabled. Enabling server access logging
+           provides detailed records for the requests that are made to a S3
+           bucket. This information is useful for security and compliance
+           auditing purposes.
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00021
+  Path:    aws_s3_bucket > uswest_bucket
+  File:    main.tf:1
+  Resolve: For AWS provider < v4.0.0, add `logging` block attribute. For AWS
+           provider >= v4.0.0, add `aws_s3_bucket_logging` resource.
+
+  [Low] S3 server access logging is disabled
+  Info:    S3 server access logging is disabled. Enabling server access logging
+           provides detailed records for the requests that are made to a S3
+           bucket. This information is useful for security and compliance
+           auditing purposes.
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00021
+  Path:    aws_s3_bucket > euwest_bucket
+  File:    main.tf:10
+  Resolve: For AWS provider < v4.0.0, add `logging` block attribute. For AWS
+           provider >= v4.0.0, add `aws_s3_bucket_logging` resource.
+
+  [Low] S3 bucket object-level logging for write events is disabled
+  Info:    S3 bucket object-level logging for write events is disabled.
+           Object-level S3 events (GetObject, DeleteObject, and PutObject) are
+           not logged by default, though this is recommended from a security
+           best practices perspective for buckets that contain sensitive data.
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00111
+  Path:    aws_s3_bucket > euwest_bucket
+  File:    main.tf:10
+  Resolve: Configure the `aws_cloudtrail` `event_selector` block with
+           appropriate settings.
+
+  [Low] S3 bucket object-level logging for write events is disabled
+  Info:    S3 bucket object-level logging for write events is disabled.
+           Object-level S3 events (GetObject, DeleteObject, and PutObject) are
+           not logged by default, though this is recommended from a security
+           best practices perspective for buckets that contain sensitive data.
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00111
+  Path:    aws_s3_bucket > uswest_bucket
+  File:    main.tf:1
+  Resolve: Configure the `aws_cloudtrail` `event_selector` block with
+           appropriate settings.
+
+  [Low] S3 bucket object-level logging for read events is disabled
+  Info:    S3 bucket object-level logging for read events is disabled.
+           Object-level S3 events (GetObject, DeleteObject, and PutObject) are
+           not logged by default, though this is recommended from a security
+           best practices perspective for buckets that contain sensitive data.
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00175
+  Path:    aws_s3_bucket > euwest_bucket
+  File:    main.tf:10
+  Resolve: Configure the `aws_cloudtrail` `event_selector` block with
+           appropriate settings.
+
+  [Low] S3 bucket object-level logging for read events is disabled
+  Info:    S3 bucket object-level logging for read events is disabled.
+           Object-level S3 events (GetObject, DeleteObject, and PutObject) are
+           not logged by default, though this is recommended from a security
+           best practices perspective for buckets that contain sensitive data.
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00175
+  Path:    aws_s3_bucket > uswest_bucket
+  File:    main.tf:1
+  Resolve: Configure the `aws_cloudtrail` `event_selector` block with
+           appropriate settings.
+
+  [Low] S3 bucket replication (cross-region or same-region) is not enabled
+  Info:    S3 bucket replication (cross-region or same-region) is not enabled.
+           Cross-Region S3 replication can help with meeting compliance
+           requirements, minimizing latency, and increasing operational
+           efficiency. Same-Region S3 replication can help with aggregating logs
+           and compliance with data sovereignty laws.
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00177
+  Path:    aws_s3_bucket > uswest_bucket
+  File:    main.tf:1
+  Resolve: Configure a `replication_configuration` block that specifies an IAM
+           role for replicating objects and rules managing the replication.
+
+  [Low] S3 bucket MFA delete control is disabled
+  Info:    S3 bucket MFA delete control is disabled. S3 bucket will not enforce
+           MFA login on delete requests.
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00234
+  Path:    aws_s3_bucket > uswest_bucket > versioning > 0 > mfa_delete
+  File:    main.tf:5
+  Resolve: Set the `aws_s3_bucket` `versioning` block `mfa_delete` field to
+           `true`.
+
+  [Low] S3 bucket MFA delete control is disabled
+  Info:    S3 bucket MFA delete control is disabled. S3 bucket will not enforce
+           MFA login on delete requests.
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00234
+  Path:    aws_s3_bucket > euwest_bucket > versioning > 0 > mfa_delete
+  File:    main.tf:13
+  Resolve: Set the `aws_s3_bucket` `versioning` block `mfa_delete` field to
+           `true`.
+
+Medium Severity Issues: 4
+
+  [Medium] S3 bucket is not encrypted
+  Info:    S3 bucket is not encrypted. Enabling server-side encryption (SSE) on
+           S3 buckets at the object level protects data at rest and helps
+           prevent the breach of sensitive information assets. Objects can be
+           encrypted with S3 Managed Keys (SSE-S3), KMS Managed Keys (SSE-KMS),
+           or Customer Provided Keys (SSE-C).
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00022
+  Path:    aws_s3_bucket > euwest_bucket
+  File:    main.tf:10
+  Resolve: In the `aws_s3_bucket`, define a `rule` in the
+           `server_side_encryption_configuration` block.
+
+  [Medium] S3 bucket is not encrypted
+  Info:    S3 bucket is not encrypted. Enabling server-side encryption (SSE) on
+           S3 buckets at the object level protects data at rest and helps
+           prevent the breach of sensitive information assets. Objects can be
+           encrypted with S3 Managed Keys (SSE-S3), KMS Managed Keys (SSE-KMS),
+           or Customer Provided Keys (SSE-C).
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00022
+  Path:    aws_s3_bucket > uswest_bucket
+  File:    main.tf:1
+  Resolve: In the `aws_s3_bucket`, define a `rule` in the
+           `server_side_encryption_configuration` block.
+
+  [Medium] S3 bucket policy does not deny requests that use HTTP
+  Info:    S3 bucket policy does not deny requests that use HTTP. To protect
+           data in transit, an S3 bucket policy should deny all HTTP requests to
+           its objects and allow only HTTPS requests. HTTPS uses Transport Layer
+           Security (TLS) to encrypt data, which preserves integrity and
+           prevents tampering.
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00181
+  Path:    aws_s3_bucket > euwest_bucket
+  File:    main.tf:10
+  Resolve: Configure the `aws_s3_bucket` `policy` field or the
+           `aws_s3_bucket_policy` with a valid action, effect, and condition.
+
+  [Medium] S3 bucket policy does not deny requests that use HTTP
+  Info:    S3 bucket policy does not deny requests that use HTTP. To protect
+           data in transit, an S3 bucket policy should deny all HTTP requests to
+           its objects and allow only HTTPS requests. HTTPS uses Transport Layer
+           Security (TLS) to encrypt data, which preserves integrity and
+           prevents tampering.
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00181
+  Path:    aws_s3_bucket > uswest_bucket
+  File:    main.tf:1
+  Resolve: Configure the `aws_s3_bucket` `policy` field or the
+           `aws_s3_bucket_policy` with a valid action, effect, and condition.
+
+High Severity Issues: 8
+
+  [High] S3 bucket does not have all block public access options enabled
+  Info:    S3 bucket does not have all block public access options enabled.
+           AWS's S3 Block Public Access feature has four settings:
+           BlockPublicAcls, IgnorePublicAcls, BlockPublicPolicy, and
+           RestrictPublicBuckets. All four settings should be enabled to help
+           prevent the risk of a data breach.
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00195
+  Path:    aws_s3_bucket > uswest_bucket
+  File:    main.tf:1
+  Resolve: Configure an `aws_s3_bucket_public_access_block` for each bucket, or
+           configure an `aws_s3_account_public_access_block` to enable block
+           public access settings at the account level.
+
+  [High] S3 bucket does not have all block public access options enabled
+  Info:    S3 bucket does not have all block public access options enabled.
+           AWS's S3 Block Public Access feature has four settings:
+           BlockPublicAcls, IgnorePublicAcls, BlockPublicPolicy, and
+           RestrictPublicBuckets. All four settings should be enabled to help
+           prevent the risk of a data breach.
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00195
+  Path:    aws_s3_bucket > euwest_bucket
+  File:    main.tf:10
+  Resolve: Configure an `aws_s3_bucket_public_access_block` for each bucket, or
+           configure an `aws_s3_account_public_access_block` to enable block
+           public access settings at the account level.
+
+  [High] S3 bucket does not have `restrict_public_buckets` enabled
+  Info:    S3 bucket does not have `restrict_public_buckets` enabled. If a
+           public policy is attached to the bucket, anyone will be able to read
+           and/or write to the bucket.
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00266
+  Path:    aws_s3_bucket > euwest_bucket
+  File:    main.tf:10
+  Resolve: Set the `aws_s3_bucket_public_access_block` or
+           `aws_s3_account_public_access_block` `restrict_public_buckets` field
+           to `true`.
+
+  [High] S3 bucket does not have `restrict_public_buckets` enabled
+  Info:    S3 bucket does not have `restrict_public_buckets` enabled. If a
+           public policy is attached to the bucket, anyone will be able to read
+           and/or write to the bucket.
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00266
+  Path:    aws_s3_bucket > uswest_bucket
+  File:    main.tf:1
+  Resolve: Set the `aws_s3_bucket_public_access_block` or
+           `aws_s3_account_public_access_block` `restrict_public_buckets` field
+           to `true`.
+
+  [High] S3 bucket does not have `ignore_public_acls` enabled
+  Info:    S3 bucket does not have `ignore_public_acls` enabled. If a public ACL
+           is attached to the bucket, anyone will be able to read and/or write
+           to the bucket.
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00280
+  Path:    aws_s3_bucket > euwest_bucket
+  File:    main.tf:10
+  Resolve: Set the `aws_s3_bucket_public_access_block` or
+           `aws_s3_account_public_access_block` `ignore_public_acls` field to
+           `true`.
+
+  [High] S3 bucket does not have `ignore_public_acls` enabled
+  Info:    S3 bucket does not have `ignore_public_acls` enabled. If a public ACL
+           is attached to the bucket, anyone will be able to read and/or write
+           to the bucket.
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00280
+  Path:    aws_s3_bucket > uswest_bucket
+  File:    main.tf:1
+  Resolve: Set the `aws_s3_bucket_public_access_block` or
+           `aws_s3_account_public_access_block` `ignore_public_acls` field to
+           `true`.
+
+  [High] S3 bucket does not have `block_public_policy` enabled
+  Info:    S3 bucket does not have `block_public_policy` enabled. Anyone who can
+           manage the bucket's policies will be able to grant public access to
+           the bucket.
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00325
+  Path:    aws_s3_bucket > euwest_bucket
+  File:    main.tf:10
+  Resolve: Set the `aws_s3_bucket_public_access_block` or
+           `aws_s3_account_public_access_block` `block_public_policy` field to
+           `true`.
+
+  [High] S3 bucket does not have `block_public_policy` enabled
+  Info:    S3 bucket does not have `block_public_policy` enabled. Anyone who can
+           manage the bucket's policies will be able to grant public access to
+           the bucket.
+  Rule:    https://snyk.io/security-rules/cloud/SNYK-CC-00325
+  Path:    aws_s3_bucket > uswest_bucket
+  File:    main.tf:1
+  Resolve: Set the `aws_s3_bucket_public_access_block` or
+           `aws_s3_account_public_access_block` `block_public_policy` field to
+           `true`.
+
+-------------------------------------------------------
+
+Test Summary
+
+  Organization: test_iiac
+  Project name: multiple_providers
+
+✔ Files without issues: 0
+✗ Files with issues: 1
+  Ignored issues: undefined
+  Total issues: 21 [ 0 critical, 8 high, 4 medium, 9 low ]
+
+-------------------------------------------------------
+
